@@ -17,7 +17,7 @@ namespace MediaPlayer.Application.Services
 
         public async Task<IEnumerable<Playlist>> GetAllAsync() => await _repo.GetAllAsync();
         public async Task<Playlist?> GetByIdAsync(int id) => await _repo.GetByIdAsync(id);
-        public async Task<Playlist> AdAsync(CreatePlaylistDto dto)
+        public async Task<Playlist> AddAsync(CreatePlaylistDto dto)
         {
             var playlist = new Playlist
             {
