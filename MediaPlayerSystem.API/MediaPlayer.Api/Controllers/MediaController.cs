@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace MediaPlayer.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller}")]
+[Route("api/[controller]")]
 public class MediaController : ControllerBase
+
 {
     private readonly MediaService _service;
 

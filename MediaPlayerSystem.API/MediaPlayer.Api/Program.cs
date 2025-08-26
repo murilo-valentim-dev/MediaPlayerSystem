@@ -1,24 +1,43 @@
+using MediaPlayer.Application.Services;
+using MediaPlayer.Domain.Interfaces;
+using MediaPlayer.Infrastructure.Data;
+using MediaPlayer.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add services
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Database (SQLite)
+// Database (SQLite)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite("Data Source=mediaplayer.db"));
+
+// Dependency Injection
+builder.Services.AddScoped<IMediaRepository, MediaRepository>();
+builder.Services.AddScoped<IPlaylistRepository, PlaylistRepository>();
+builder.Services.AddScoped<MediaService>();
+builder.Services.AddScoped<PlaylistService>();
+
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseCors("AllowAll");
 
 app.MapControllers();
 
