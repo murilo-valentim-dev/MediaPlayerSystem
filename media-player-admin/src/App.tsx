@@ -1,22 +1,43 @@
-import React from 'react';
-import { Layout } from 'antd';
-import { Routes, Route } from 'react-router-dom';
+import { Layout, Menu } from 'antd';
+import { Link, Route, Routes } from 'react-router-dom';
 import MediaList from './pages/MediaList';
+import MediaForm from './pages/MediaForm';
+import PlaylistList from './pages/PlaylistList';
+import PlaylistForm from './pages/PlaylistForm';
 
 const { Header, Content, Footer } = Layout;
 
-const App: React.FC = () => {
+function App() {
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ color: 'white' }}>Media Player Admin</Header>
-      <Content style={{ padding: '24px' }}>
+      <Header>
+        <Menu theme="dark" mode="horizontal">
+          <Menu.Item key="1">
+            <Link to="/medias">Mídias</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/playlists">Playlists</Link>
+          </Menu.Item>
+        </Menu>
+      </Header>
+
+      <Content style={{ padding: '20px' }}>
         <Routes>
-          <Route path="/" element={<MediaList />} />
+          {/* Rotas de Mídias */}
+          <Route path="/medias" element={<MediaList />} />
+          <Route path="/medias/new" element={<MediaForm />} />
+          <Route path="/medias/new/:id" element={<MediaForm />} />
+
+
+          <Route path="/playlists" element={<PlaylistList />} />
+          <Route path="/playlists/new" element={<PlaylistForm />} />
+          <Route path="/playlists/:id" element={<PlaylistForm />} />
         </Routes>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>© 2025 Murilo Valentim</Footer>
+
+      <Footer style={{ textAlign: 'center' }}>Media Player Admin ©2025</Footer>
     </Layout>
   );
-};
+}
 
 export default App;
