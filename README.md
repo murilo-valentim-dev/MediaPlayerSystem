@@ -45,18 +45,18 @@ Repositório com 3 projetos integrados, cada um com sua responsabilidade:
 
 ### 1. Backend (.NET API)
 
-cmd
-cd MediaPlayerSystem.API
-dotnet restore
-dotnet ef database update              # Aplica migrations
-dotnet run                            # Inicia a API (por padrão em http://localhost:5129)
+- cmd
+- cd MediaPlayerSystem.API
+- dotnet restore
+- dotnet ef database update              # Aplica migrations
+- dotnet run                            # Inicia a API (por padrão em http://localhost:5129)
 
 ### Verifique no terminal:
-Now listening on: http://localhost:5129
+http://localhost:5129
 
 ### Para testes, acesse:
-GET http://localhost:5129/api/playlist
-GET http://localhost:5129/api/playlist/{id}
+- GET http://localhost:5129/api/playlist
+- GET http://localhost:5129/api/playlist/{id}
 
 
 ### 2. Admin (Interface de Cadastro)
@@ -65,9 +65,8 @@ cd media-player-admin
 npm install
 npm start
 
-Acesse em http://localhost:3000
- (ou outra porta mostrada no terminal).
-Cadastre mídias e playlists.
+- Acesse em http://localhost:3000 (ou outra porta mostrada no terminal).
+- Cadastre mídias e playlists.
 
 ### 3.Player (Interface de Reprodução)
 
@@ -79,7 +78,6 @@ Por padrão, roda em http://localhost:3001
  (ou porta exibida).
 Selecione uma playlist para reproduzir vídeos do YouTube ou mídia suportada.
 
-Dica: este frontend consome a API em http://localhost:5129/api.
 
 ```text
 Fases do Desafio Concluídas
@@ -89,23 +87,18 @@ Fase	Descrição	Status
 3	Player com React reproduzindo mídias da playlist	Concluída
 4	Extras (responsividade, UI, transições, autenticação...)	Parcialmente
 
-Extras implementados:
-
-Layout responsive com MUI e CSS avançado
-
-Estilização aprimorada (hover, efeitos visuais)
 ```
 ---
 
 ### O que Reforçaria com Mais Tempo
 
-Autoplay contínuo com transições (Fade-In, fade-out)
+- Autoplay contínuo com transições (Fade-In, fade-out)
 
-Feedback visual (loading, estados vazios, tratamento de erros)
+- Feedback visual (loading, estados vazios, tratamento de erros)
 
-Autenticação com JWT
+- Autenticação com JWT
 
-Testes automatizados (unitários e E2E)
+- Testes automatizados (unitários e E2E)
 
 ---
 
