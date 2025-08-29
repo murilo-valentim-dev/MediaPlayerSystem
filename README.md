@@ -30,7 +30,7 @@ Repositório com 3 projetos integrados, cada um com sua responsabilidade:
 
 ### Player (media-player-system-player)
 - React + TypeScript
-- UI: Material-UI (MUI)
+- UI: Ant Design
 - Estado global: Redux Toolkit
 - Player de mídia: react-player@2.12.0
 - Consumo da API via Axios
