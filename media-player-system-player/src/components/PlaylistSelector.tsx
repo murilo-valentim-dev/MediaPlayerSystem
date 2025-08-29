@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
-import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { Select } from 'antd';
 import { useDispatch } from 'react-redux';
 import { setCurrentMedia, setPlaylistMedias } from '../store/playerSlice';
+
+const { Option } = Select;
 
 const PlaylistSelector: React.FC = () => {
     const [playlists, setPlaylists] = useState<any[]>([]);
@@ -16,18 +18,15 @@ const PlaylistSelector: React.FC = () => {
             .catch((err) => console.error(err));
     }, []);
 
-    const handleChange = async (event: SelectChangeEvent<string>) => {
-        const playlistId = parseInt(event.target.value, 10);
-        setSelectedPlaylist(event.target.value);
+    const handleChange = async (value: string) => {
+        const playlistId = parseInt(value, 10);
+        setSelectedPlaylist(value);
 
         try {
             const response = await api.get(`/playlist/${playlistId}`);
-            const midias = response.data.midias; // usa direto do retorno da API
+            const midias = response.data.midias;
 
-            // Atualiza playlist completa no Redux
             dispatch(setPlaylistMedias(midias));
-
-            // Define a primeira mídia como currentMedia
             if (midias.length > 0) {
                 dispatch(setCurrentMedia(midias[0]));
             } else {
@@ -41,22 +40,18 @@ const PlaylistSelector: React.FC = () => {
     };
 
     return (
-        <Box my={2}>
-            <FormControl fullWidth>
-                <InputLabel>Selecionar Playlist</InputLabel>
-                <Select
-                    value={selectedPlaylist}
-                    label="Selecionar Playlist"
-                    onChange={handleChange}
-                >
-                    {playlists.map((playlist) => (
-                        <MenuItem key={playlist.id} value={playlist.id.toString()}>
-                            {playlist.nome}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-        </Box>
+        <Select
+            value={selectedPlaylist}
+            placeholder="Selecione uma playlist"
+            style={{ width: '100%' }}
+            onChange={handleChange}
+        >
+            {playlists.map((playlist) => (
+                <Option key={playlist.id} value={playlist.id.toString()}>
+                    {playlist.nome}
+                </Option>
+            ))}
+        </Select>
     );
 };
 

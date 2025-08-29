@@ -3,47 +3,40 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import PlaylistSelector from './components/PlaylistSelector';
 import Player from './components/Player';
-import { Container, Typography, Box, Paper, Stack } from '@mui/material';
+import { Layout, Typography, Space } from 'antd';
 import './App.css';
+
+const { Header, Content, Footer } = Layout;
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <Box
-        sx={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {/* Conteúdo principal */}
-        <Box sx={{ flexGrow: 1, py: 4, m: 2 }}>
-          <Box className="app-header" textAlign="left" mb={4}>
-            <Typography variant="h4" component="h1">
-              Media Player
-            </Typography>
-          </Box>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Header style={{ backgroundColor: '#0F2143', borderRadius: '0 0 16px 16px', padding: '10px 15px' }}>
+          <Typography.Title style={{ color: '#fff', margin: 2 }} level={2}>
+            Media Player
+          </Typography.Title>
+        </Header>
 
-          <Container maxWidth="md">
-            <Stack spacing={4}>
-              <Paper className="playlist-selector" sx={{ p: 2 }}>
-                <Typography variant="h6" gutterBottom>
-                  Selecione uma playlist
-                </Typography>
-                <PlaylistSelector />
-              </Paper>
+        <Content style={{ padding: '40px 20px', display: 'flex', justifyContent: 'center' }}>
+          <Space direction="vertical" size="large" style={{ width: '100%', maxWidth: 900 }}>
+            <div className="playlist-selector">
+              <Typography.Title level={4} style={{ color: '#0F2143' }}>
+                Selecione uma playlist
+              </Typography.Title>
+              <PlaylistSelector />
+            </div>
 
-              <Box className="player-container">
-                <Player />
-              </Box>
-            </Stack>
-          </Container>
-        </Box>
+            <div className="player-container">
+              <Player />
+            </div>
+          </Space>
+        </Content>
 
-        <Box component="footer" sx={{ textAlign: 'center', py: 2, bgcolor: '#f5f5f5' }}>
-          Media Player - Player ©2025
-        </Box>
-      </Box>
+        <Footer style={{ textAlign: 'center', backgroundColor: '#f5f5f5' }}>
+          Media Player - ©2025
+        </Footer>
+      </Layout>
     </Provider>
   );
 };

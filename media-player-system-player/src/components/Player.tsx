@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import ReactPlayer from 'react-player';
-import { Box, Typography, Paper, Button, Stack } from '@mui/material';
+import { Button, Typography, Space } from 'antd';
 import { setCurrentMedia } from '../store/playerSlice';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import '../App.css';
 
 const Player: React.FC = () => {
@@ -14,7 +13,6 @@ const Player: React.FC = () => {
     const dispatch = useDispatch();
     const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-    // Sincroniza o índice sempre que currentMedia muda
     useEffect(() => {
         if (currentMedia && playlistMedias.length > 0) {
             const idx = playlistMedias.findIndex(m => m.id === currentMedia.id);
@@ -38,23 +36,21 @@ const Player: React.FC = () => {
 
     if (!currentMedia) {
         return (
-            <Paper className="player-container" sx={{ textAlign: 'center', py: 6 }}>
-                <Typography variant="h6" color="#555">
+            <div className="player-container" style={{ textAlign: 'center', padding: 60 }}>
+                <Typography.Text style={{ color: '#555' }}>
                     Selecione uma mídia para reproduzir
-                </Typography>
-            </Paper>
+                </Typography.Text>
+            </div>
         );
     }
 
     const cleanUrl = currentMedia.url.split("&")[0];
 
     return (
-        <Paper className="player-container" sx={{ p: 3 }}>
-            <Typography variant="h5" fontWeight="bold" gutterBottom>
-                {currentMedia.titulo}
-            </Typography>
+        <div className="player-container" style={{ padding: 20 }}>
+            <Typography.Title level={4}>{currentMedia.titulo}</Typography.Title>
 
-            <Box className="player-video-wrapper" sx={{ position: 'relative', paddingTop: '56.25%', borderRadius: 2, overflow: 'hidden', mb: 3 }}>
+            <div className="player-video-wrapper">
                 <ReactPlayer
                     url={cleanUrl}
                     controls
@@ -62,40 +58,17 @@ const Player: React.FC = () => {
                     height="100%"
                     style={{ position: 'absolute', top: 0, left: 0 }}
                 />
-            </Box>
+            </div>
 
-            <Stack direction="row" spacing={3} justifyContent="center">
-                <Button
-                    variant="contained"
-                    startIcon={<SkipPreviousIcon />}
-                    sx={{
-                        bgcolor: '#0F2143',
-                        color: '#fff',
-                        borderRadius: 3,
-                        px: 3,
-                        '&:hover': { bgcolor: '#152d5c' }
-                    }}
-                    onClick={handlePrev}
-                >
+            <Space size="middle" style={{ justifyContent: 'center', display: 'flex', marginTop: 20 }}>
+                <Button type="primary" icon={<LeftOutlined />} onClick={handlePrev}>
                     Anterior
                 </Button>
-
-                <Button
-                    variant="contained"
-                    endIcon={<SkipNextIcon />}
-                    sx={{
-                        bgcolor: '#0F2143',
-                        color: '#fff',
-                        borderRadius: 3,
-                        px: 3,
-                        '&:hover': { bgcolor: '#152d5c' }
-                    }}
-                    onClick={handleNext}
-                >
+                <Button type="primary" icon={<RightOutlined />} onClick={handleNext}>
                     Próxima
                 </Button>
-            </Stack>
-        </Paper>
+            </Space>
+        </div>
     );
 };
 
